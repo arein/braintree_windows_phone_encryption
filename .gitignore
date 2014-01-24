@@ -5,3 +5,6 @@
 /BraintreeEncryption.Library.Tests/bin/*
 /BraintreeEncryption.Library.Tests/obj/*
 /_ReSharper.BraintreeEncryption.Library
+
+# IDE
+._*

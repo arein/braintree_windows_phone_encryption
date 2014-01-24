@@ -1,4 +1,4 @@
-# Braintree Windows Phone Encryption
+# Braintree Windows Phone / Windows 8 Encryption
 
 This library is for use with [Braintree's payment gateway](http://braintreepayments.com/) in concert with one of [the supported client libraries](http://braintreepayments.com/docs).  It encrypts sensitive payment information using the public key of an asymmetric key pair.
 
@@ -8,9 +8,9 @@ There are a couple of ways to use the Windows Phone client encryption library.
 
 ### Assembly File
 
-1. Simply download the assembly file from this repo and reference it to your Windows Phone project.
+1. Simply download the assembly file from this repo and reference it to your Windows Phone project (does not work for Windows 8).
 
-### Windows Phone Class Library
+### Windows Phone Class Library (Required for Windows 8 Projects)
 
 1. Clone this repo.
 2. Import the Braintree Windows Phone class library into your solution.
