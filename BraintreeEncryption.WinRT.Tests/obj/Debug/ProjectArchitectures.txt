@@ -1,0 +1,2 @@
+C:\Users\arein\Documents\Visual Studio 2013\Projects\Letterapp\braintree_windows_phone_encryption\BraintreeEncryption.WinRT.Test\BraintreeEncryption.WinRT.Tests.csproj;neutral
+C:\Users\arein\Documents\Visual Studio 2013\Projects\Letterapp\braintree_windows_phone_encryption\BraintreeEncryption.WinRTs\BraintreeEncryption.WinRT.csproj;neutral

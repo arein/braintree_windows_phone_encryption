@@ -1,13 +1,19 @@
 ﻿using System.Text;
 using System.Linq;
+#if WINRT
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#else
 using Microsoft.Silverlight.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+#endif
 
 
 namespace BraintreeEncryption.Library.Tests
 {
     [TestClass]
+#if !WINRT
     [Tag("RsaTests")]
+#endif
     public class RsaTest
     {
         private readonly byte[] _dataToEncrypt = new UTF8Encoding().GetBytes("test data");

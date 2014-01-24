@@ -1,12 +1,24 @@
-﻿using System;
-using System.Security.Cryptography;
+﻿
+using System;
 using System.Text;
+#if WINRT
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using Org.BouncyCastle.Crypto.Encodings;
+using Org.BouncyCastle.Crypto.Engines;
+using Org.BouncyCastle.Crypto.Parameters;
+using Org.BouncyCastle.Asn1;
+using Org.BouncyCastle.Asn1.Pkcs;
+using Windows.Security.Cryptography.Core;
+using Windows.Security.Cryptography;
+#else
+using System.Security.Cryptography;
 using BraintreeEncryption.Library.BouncyCastle.Asn1;
 using BraintreeEncryption.Library.BouncyCastle.Asn1.Pkcs;
 using BraintreeEncryption.Library.BouncyCastle.Crypto.Encodings;
 using BraintreeEncryption.Library.BouncyCastle.Crypto.Engines;
 using BraintreeEncryption.Library.BouncyCastle.Crypto.Parameters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+#endif
 
 namespace BraintreeEncryption.Library.Tests
 {
@@ -29,10 +41,17 @@ namespace BraintreeEncryption.Library.Tests
             var encryptedData = new byte[decoded.Length - iv.Length];
             Buffer.BlockCopy(decoded, iv.Length, encryptedData, 0, encryptedData.Length);
 
+#if WINRT
+            var aesProvider = SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithmNames.AesCbcPkcs7);
+            var key = aesProvider.CreateSymmetricKey(CryptographicBuffer.CreateFromByteArray(aesKey));
+            var decryptedBuffer = CryptographicEngine.Decrypt(key, CryptographicBuffer.CreateFromByteArray(encryptedData), CryptographicBuffer.CreateFromByteArray(iv));
+            return CryptographicBuffer.ConvertBinaryToString(BinaryStringEncoding.Utf8, decryptedBuffer);
+#else
             var decryptor = new AesManaged {KeySize = 256, BlockSize = 128}.CreateDecryptor(aesKey, iv);
 
             var decryptedBytes = decryptor.TransformFinalBlock(encryptedData, 0, encryptedData.Length);
             return new UTF8Encoding().GetString(decryptedBytes, 0, decryptedBytes.Length);
+#endif
         }
 
         public static byte[] DecryptRsa(string encrypted, string privateKey)

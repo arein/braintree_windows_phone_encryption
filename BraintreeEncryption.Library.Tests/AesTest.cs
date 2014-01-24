@@ -1,11 +1,17 @@
 ﻿using System;
+#if WINRT
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#else
 using Microsoft.Silverlight.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+#endif
 
 namespace BraintreeEncryption.Library.Tests
 {
     [TestClass]
+#if !WINRT
     [Tag("AesTests")]
+#endif
     public class AesTest
     {
         private Aes _aes;
